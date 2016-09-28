@@ -10,12 +10,12 @@ declare let webkitSpeechRecognition: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Speed Demo';
+  title = 'Speech Recognition Demo';
   recognition: any;
   sentencces: string[] = [];
   isReading: boolean = false;
   recognitionStarted: boolean = false;
-  people$: Observable<any>;
+  voice$: Observable<any>;
 
   constructor(private zone: NgZone) {
   }
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.recognition = new webkitSpeechRecognition();
     this.clear();
-    this.people$ = this.speech();
+    this.voice$ = this.speech();
   }
 
   clear() {
@@ -46,15 +46,17 @@ export class AppComponent implements OnInit {
         this.recognition.start();
         this.recognitionStarted = true;
       }
-    }).do(data => {
-      this.isReading = !data.isFinal;
-    }).map(data => {
-      if (data.isFinal) {
-        this.sentencces.push(data.item(0).transcript);
-        return '';
-      } else {
-        return data.item(0).transcript;
-      }
-    });
+    }).retry(10)
+      .do(data => {
+        this.isReading = !data.isFinal;
+      })
+      .map(data => {
+        if (data.isFinal) {
+          this.sentencces.push(data.item(0).transcript);
+          return '';
+        } else {
+          return data.item(0).transcript;
+        }
+      });
   }
 }
