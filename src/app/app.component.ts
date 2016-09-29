@@ -26,6 +26,10 @@ export class AppComponent implements OnInit {
     this.voice$ = this.speech();
   }
 
+  restart() {
+    this.voice$ = this.speech();
+  }
+  
   clear() {
     this.sentencces = [];
   }
@@ -36,8 +40,14 @@ export class AppComponent implements OnInit {
         observer.next(e.results.item(e.results.length - 1));
         this.zone.run(() => { })
       };
-      this.recognition.onerror = (e) => this.zone.run(() => observer.error(e));
-      this.recognition.onend = (e) => this.zone.run(() => observer.complete());
+      this.recognition.onerror = (e) => this.zone.run(() => {
+        observer.error(e)
+      });
+      this.recognition.onend = (e) => this.zone.run(() => {
+        observer.complete()
+        this.recognitionStarted = false;
+        this.restart();
+      });
 
       this.recognition.continuous = true;
       this.recognition.interimResults = true;
