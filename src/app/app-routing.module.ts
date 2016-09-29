@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-const routes: Routes = [];
+import { CurrentComponent } from './current/current.component';
+import { SpeechComponent } from './speech/speech.component'
+const routes: Routes = [
+  { path: 'current', component: CurrentComponent },
+  { path: '**', component: SpeechComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

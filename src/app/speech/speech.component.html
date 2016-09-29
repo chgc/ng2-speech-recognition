@@ -1,0 +1,11 @@
+<h1>
+    {{title}}
+</h1>
+<pre>
+    {{ voice$ | async }}
+</pre>
+<p *ngFor="let sentence of sentencces">
+    {{ sentence }}
+</p>
+<button (click)="clear()">clear</button>
+<span *ngIf="isReading">....分析中...</span>
