@@ -19,6 +19,7 @@ export class SpeechComponent implements OnInit {
   recognitionStarted: boolean = false;
   voice$: Observable<any>;
   currentspeech: FirebaseObjectObservable<any>;
+  finalspeech: FirebaseObjectObservable<any>;
 
   constructor(private zone: NgZone, private af: AngularFire) {
   }
@@ -28,6 +29,7 @@ export class SpeechComponent implements OnInit {
     this.clear();
     this.voice$ = this.speech();
     this.currentspeech = this.af.database.object('/current');
+    this.finalspeech = this.af.database.object('/final');
   }
 
   restart() {
@@ -67,13 +69,18 @@ export class SpeechComponent implements OnInit {
       .map(data => {
         if (data.isFinal) {
           this.sentencces.push(data.item(0).transcript);
-          this.currentspeech.set(data.item(0).transcript);
-          setTimeout(() => {
-            this.currentspeech.set('');
-          }, 3000);
+          let ss = data.item(0).transcript;
+          ss = ss.replace("逗號", "，");
+          ss = ss.replace("句號", "。");
+          console.log(ss);
+          this.finalspeech.set(ss);
+          this.currentspeech.set('');
           return '';
         } else {
-          this.currentspeech.set(data.item(0).transcript);
+          let ss = data.item(0).transcript;
+          ss = ss.replace("逗號", "，");
+          ss = ss.replace("句號", "。");
+          this.currentspeech.set(ss);
           return data.item(0).transcript;
         }
       });

@@ -10,9 +10,11 @@ export class CurrentComponent implements OnInit {
 
   constructor(private af: AngularFire) { }
   currentspeech: FirebaseObjectObservable<any>;
+  finalspeech: FirebaseObjectObservable<any>;
 
   ngOnInit() {
     this.currentspeech = this.af.database.object('/current');
+    this.finalspeech = this.af.database.object('/final');
   }
 
 }
