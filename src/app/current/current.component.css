@@ -1,9 +1,7 @@
-* {
-    background: green;
-}
-
 p {
+    background-color: lightgrey;
+    font-family: Microsoft JhengHei;
     font-size: 40px;
-    color: white;
+    color: black;
     font-weight: 900;
 }

@@ -1,6 +1,6 @@
-<p>  
-  {{ (currentspeech | async)?.$value }} &nbsp;
+<p [@visibilityChanged]="(currentspeech | async)?.$value.length == 0 ?'hidden':'shown'">
+    {{ (currentspeech | async)?.$value }} &nbsp;
 </p>
 <p>
-  {{ (finalspeech | async)?.$value }}  
+    {{ (finalspeech | async)?.$value }}
 </p>
