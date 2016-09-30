@@ -67,22 +67,17 @@ export class SpeechComponent implements OnInit {
         this.isReading = !data.isFinal;
       })
       .map(data => {
+        let sentence = data.item(0).transcript;
+        sentence = sentence.replace(/(逗號|逗點)/g, "，").replace(/(句號|句點)/g, "。").replace(/(嗎$)/, "\$1?");
         if (data.isFinal) {
-          this.sentencces.push(data.item(0).transcript);
-          let ss = data.item(0).transcript;
-          ss = ss.replace("逗號", "，");
-          ss = ss.replace("句號", "。");
-          console.log(ss);
-          this.finalspeech.set(ss);
+          this.sentencces.push(sentence);
+          this.finalspeech.set(sentence);
           this.currentspeech.set('');
           return '';
         } else {
-          let ss = data.item(0).transcript;
-          ss = ss.replace("逗號", "，");
-          ss = ss.replace("句號", "。");
-          this.currentspeech.set(ss);
-          return data.item(0).transcript;
+          this.currentspeech.set(sentence);
+          return sentence;
         }
-      });
+      });    
   }
 }
