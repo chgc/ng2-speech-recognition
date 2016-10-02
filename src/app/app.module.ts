@@ -10,11 +10,11 @@ import { CurrentComponent } from './current/current.component';
 import { SpeechComponent } from './speech/speech.component';
 // Must export the config
 export const firebaseConfig = {
-  apiKey: "AIzaSyAw4fnkCxiRYn84-F7KH2t1tFIvsLDmqvQ",
-  authDomain: "speech-58d7a.firebaseapp.com",
-  databaseURL: "https://speech-58d7a.firebaseio.com",
-  storageBucket: "speech-58d7a.appspot.com",
-  messagingSenderId: "539491812340"
+  apiKey: "AIzaSyA46q2b376YbXzXKZHtucF84BGJsLRVX5M",
+  authDomain: "speech-ef887.firebaseapp.com",
+  databaseURL: "https://speech-ef887.firebaseio.com",
+  storageBucket: "",
+  messagingSenderId: "439204197340"
 };
 
 @NgModule({
