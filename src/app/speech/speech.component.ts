@@ -78,6 +78,6 @@ export class SpeechComponent implements OnInit {
           this.currentspeech.set(sentence);
           return sentence;
         }
-      });    
+      });
   }
 }

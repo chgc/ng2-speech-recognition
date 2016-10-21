@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { SpeechRoutingModule } from './app-routing.module';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthMethods, AuthProviders } from 'angularfire2';
 
 import { AppComponent } from './app.component';
 import { CurrentComponent } from './current/current.component';
@@ -17,6 +17,11 @@ export const firebaseConfig = {
   messagingSenderId: "439204197340"
 };
 
+const myFirebaseAuthConfig = {
+  provider: AuthProviders.Anonymous,
+  method: AuthMethods.Anonymous
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +33,7 @@ export const firebaseConfig = {
     FormsModule,
     HttpModule,
     SpeechRoutingModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]
